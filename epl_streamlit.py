@@ -24,7 +24,7 @@ roll_df = encode_data(roll_df)
 roll_df_normal = normalization_data(roll_df)
 model = rf_regressor(roll_df_normal)
 
-st.dataframe(roll_df)
+st.dataframe(df)
 
 
 home_team = st.selectbox("Choose Home Team",
@@ -44,3 +44,16 @@ away_team = st.selectbox("Choose Away Team",
                           'Cardiff City', 'Norwich City', 'Sheffield Utd', 'Leeds United', 'Luton Town'),
                         )
 button = st.button('Start Prediction')
+
+if button == True:
+    st.write('Prediction Started')
+    home_team
+    st.write("You selected:", home_team)
+    away_team
+    st.write("You selected:", away_team)
+    predict_data(roll_df_normal, home_team, away_team)
+    
+else:
+  st.write('Prediction Not Started')
+
+
