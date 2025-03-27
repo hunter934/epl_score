@@ -42,15 +42,3 @@ away_team = st.selectbox("Choose Away Team",
                           'Cardiff City', 'Norwich City', 'Sheffield Utd', 'Leeds United', 'Luton Town'),
                         )
 button = st.button('Start Prediction')
-if button == True:
-    st.write('Prediction Started')
-    home_team
-    st.write("You selected:", home_team)
-    away_team
-    st.write("You selected:", away_team)
-else:
-  st.write('Prediction Not Started')
-
-
-predict_data(roll_df_normal, home_team, away_team)
-plot_timeline(roll_df, home_team, away_team)
