@@ -7,6 +7,7 @@ Original file is located at
     https://colab.research.google.com/drive/1cEz7NWkbTosCjo69zoSLL5elBKtgH0x1
 """
 
+import streamlit as st
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -276,8 +277,8 @@ def predict_data(roll_df, home_team, away_team):
   # Make prediction
   new_test = model.predict(new_np)
   new_test = pd.DataFrame(new_test, columns=['GF','GA'])
-  print(f"Home team: {new_test['GF'].values[0]}")
-  print(f"Away team: {new_test['GA'].values[0]}")
+  st.write(f"Home team: {new_test['GF'].values[0]}")
+  st.write(f"Away team: {new_test['GA'].values[0]}")
 
 def plot_timeline(roll_df, home_team, away_team, window_size=5):
   # Filter the dataframe to include only games between the specified teams
