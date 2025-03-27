@@ -35,6 +35,7 @@ home_team = st.selectbox("Choose Home Team",
                           'West Brom', 'Swansea City', 'Burnley', 'Stoke City', 'Huddersfield',
                           'Cardiff City', 'Norwich City', 'Sheffield Utd', 'Leeds United', 'Luton Town'),
                         )
+st.write("You selected:", home_team)
 away_team = st.selectbox("Choose Away Team", 
                          ('Manchester Utd', 'Ipswich Town', 'Newcastle Utd', "Nott'ham Forest", 
                           'Everton', 'Arsenal', 'West Ham', 'Brentford', 'Chelsea', 'Leicester City',
@@ -44,13 +45,10 @@ away_team = st.selectbox("Choose Away Team",
                           'Cardiff City', 'Norwich City', 'Sheffield Utd', 'Leeds United', 'Luton Town'),
                         )
 button = st.button('Start Prediction')
+st.write("You selected:", away_team)
 
 if button == True:
     st.write('Prediction Started')
-    home_team
-    st.write("You selected:", home_team)
-    away_team
-    st.write("You selected:", away_team)
     predict_data(roll_df_normal, home_team, away_team)
     
 else:
