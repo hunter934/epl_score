@@ -277,8 +277,8 @@ def predict_data(roll_df, home_team, away_team):
   # Make prediction
   new_test = model.predict(new_np)
   new_test = pd.DataFrame(new_test, columns=['GF','GA'])
-  st.write(f"Home team: {new_test['GF'].values[0]}")
-  st.write(f"Away team: {new_test['GA'].values[0]}")
+  st.write(f"{home_team} score prediction: {new_test['GF'].values[0]}")
+  st.write(f"{away_team} score prediction: {new_test['GA'].values[0]}")
 
 def plot_timeline(roll_df, home_team, away_team, window_size=5):
   # Filter the dataframe to include only games between the specified teams
