@@ -24,9 +24,6 @@ roll_df = encode_data(roll_df)
 roll_df_normal = normalization_data(roll_df)
 model = rf_regressor(roll_df_normal)
 
-st.dataframe(df)
-
-
 home_team = st.selectbox("Choose Home Team",
                          ('Manchester Utd', 'Ipswich Town', 'Newcastle Utd', "Nott'ham Forest",
                           'Everton', 'Arsenal', 'West Ham', 'Brentford', 'Chelsea', 'Leicester City',
