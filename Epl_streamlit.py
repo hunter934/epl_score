@@ -28,7 +28,7 @@ if left.button("START", use_container_width=True, type='primary'):
     roll_df = encode_data(roll_df)
     roll_df_normal = normalization_data(roll_df)
 
-right.page_link('1_See_The_Data.py')
+st.page_link('1_See_The_Data.py')
 
 
 home_team = st.selectbox("Choose Home Team",
