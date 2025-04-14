@@ -28,7 +28,7 @@ if left.button("START", use_container_width=True, type='primary'):
     roll_df = encode_data(roll_df)
     roll_df_normal = normalization_data(roll_df)
 
-st.page_link('1_See_The_Data.py')
+st.page_link("https://github.com/hunter934/epl_score/blob/4ca7d807cb3b0b03f56e1ab2a8c6a4c0bc4831d3/1_See_The_Data.py")
 
 
 home_team = st.selectbox("Choose Home Team",
