@@ -28,8 +28,8 @@ if left.button("START", use_container_width=True, type='primary'):
     roll_df = encode_data(roll_df)
     roll_df_normal = normalization_data(roll_df)
 
-st.page_link("pages/1_See_The_Data.py", label="EPL Database", icon="1️⃣")
-
+page_1 = st.page_link("pages/1_See_The_Data.py", label="EPL Database")
+right.button("See the Data", use_container_width=True, type='secondary', on_click=page_1)
 
 home_team = st.selectbox("Choose Home Team",
                          ('Manchester Utd', 'Ipswich Town', 'Newcastle Utd', "Nott'ham Forest",
