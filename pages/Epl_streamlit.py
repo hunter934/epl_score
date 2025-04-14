@@ -18,7 +18,7 @@ st.set_page_config(page_title="EPL Score - Can Your Team Win?", page_icon="⚽")
 st.header('Can Your Team Win?')
 st.write('English Premier League Version')
 st.write('This is for FUN only. I made this because I need a portfolio for my data science job (LOL).')
-df = read_data('epl-2017-2025-03-20.csv')
+df = read_data('pages/epl-2017-2025-03-20.csv')
 
 left, right = st.columns(2)
 if left.button("START", use_container_width=True, type='primary'):
