@@ -18,7 +18,7 @@ st.set_page_config(page_title="EPL Score - Can Your Team Win?", page_icon="⚽")
 st.header('Can Your Team Win?')
 st.write('English Premier League Version')
 st.write('This is for FUN only. I made this because I need a portfolio for my data science job (LOL).')
-df = read_data('pages/epl-2017-2025-03-20.csv')
+df = read_data('epl-2017-2025-03-20.csv')
 
 left, right = st.columns(2)
 if left.button("START", use_container_width=True, type='primary'):
@@ -28,7 +28,7 @@ if left.button("START", use_container_width=True, type='primary'):
     roll_df = encode_data(roll_df)
     roll_df_normal = normalization_data(roll_df)
 
-page_1 = st.page_link("pages/1_See_The_Data.py")
+page_1 = st.page_link("1_See_The_Data.py")
 right.button("See the Data", use_container_width=True, type='secondary', on_click=page_1)
 
 home_team = st.selectbox("Choose Home Team",
