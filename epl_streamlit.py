@@ -28,7 +28,7 @@ if left.button("START", use_container_width=True, type='primary'):
     
 if right.button("See the Data", use_container_width=True, type='secondary'):
     st.dataframe(df)
-     st.caption('Last update: 20-03-2025')
+    st.caption('Last update: 20-03-2025')
 
 home_team = st.selectbox("Choose Home Team",
                          ('Manchester Utd', 'Ipswich Town', 'Newcastle Utd', "Nott'ham Forest",
