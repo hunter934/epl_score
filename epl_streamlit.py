@@ -25,6 +25,7 @@ if left.button("START", use_container_width=True, type='primary'):
     roll_df = sort_data(df)
     roll_df = encode_data(roll_df)
     roll_df_normal = normalization_data(roll_df)
+    st.caption('Last update: 20-03-2025')
     
 if right.button("See the Data", use_container_width=True, type='secondary'):
     st.dataframe(df)
