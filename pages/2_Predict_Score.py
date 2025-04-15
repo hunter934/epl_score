@@ -1,5 +1,6 @@
 import streamlit as st
 import numpy as np
+from function_epl import *
 
 st.header("Let's See the Score!")
 
