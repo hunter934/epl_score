@@ -32,7 +32,7 @@ with right:
                         )
   st.write("You selected:", away_team)
 
-col1, col2, col3 = st.colums(3)
+col1, col2, col3 = st.columns(3)
 with col2:
   button = st.button('Start Prediction')
 
