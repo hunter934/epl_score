@@ -10,7 +10,9 @@ roll_df = sort_data(df)
 roll_df = encode_data(roll_df)
 roll_df_normal = normalization_data(roll_df)
 
-home_team = st.selectbox("Choose Home Team",
+left, right = st.columns(2)
+with left:
+  home_team = st.selectbox("Choose Home Team",
                          ('Manchester Utd', 'Ipswich Town', 'Newcastle Utd', "Nott'ham Forest",
                           'Everton', 'Arsenal', 'West Ham', 'Brentford', 'Chelsea', 'Leicester City',
                           'Brighton', 'Tottenham', 'Fulham', 'Crystal Palace', 'Manchester City',
@@ -18,8 +20,9 @@ home_team = st.selectbox("Choose Home Team",
                           'West Brom', 'Swansea City', 'Burnley', 'Stoke City', 'Huddersfield',
                           'Cardiff City', 'Norwich City', 'Sheffield Utd', 'Leeds United', 'Luton Town'),
                         )
-st.write("You selected:", home_team)
-away_team = st.selectbox("Choose Away Team", 
+  st.write("You selected:", home_team)
+with right:
+  away_team = st.selectbox("Choose Away Team", 
                          ('Manchester Utd', 'Ipswich Town', 'Newcastle Utd', "Nott'ham Forest", 
                           'Everton', 'Arsenal', 'West Ham', 'Brentford', 'Chelsea', 'Leicester City',
                           'Brighton', 'Tottenham', 'Fulham', 'Crystal Palace', 'Manchester City',
@@ -27,13 +30,17 @@ away_team = st.selectbox("Choose Away Team",
                           'West Brom', 'Swansea City', 'Burnley', 'Stoke City', 'Huddersfield',
                           'Cardiff City', 'Norwich City', 'Sheffield Utd', 'Leeds United', 'Luton Town'),
                         )
-button = st.button('Start Prediction')
-st.write("You selected:", away_team)
+  st.write("You selected:", away_team)
+
+col1, col2, col3 = st.colums(3)
+with col2:
+  button = st.button('Start Prediction')
 
 if button == True:
-    st.write('Prediction Starting')
     model = rf_regressor(roll_df_normal)
     predict_data(roll_df_normal, home_team, away_team)
     
 else:
   st.write('Prediction Not Started')
+
+st.caption("Last Update: 20-03-2025")
