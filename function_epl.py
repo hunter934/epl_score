@@ -277,9 +277,17 @@ def predict_data(roll_df, home_team, away_team):
   # Make prediction
   new_test = model.predict(new_np)
   new_test = pd.DataFrame(new_test, columns=['GF','GA'])
-  st.write(f"{home_team} score prediction: {new_test['GF'].values[0]}")
-  st.write(f"{away_team} score prediction: {new_test['GA'].values[0]}")
-
+  left, right = st.columns(2)
+  with left:
+      st.write(f"{home_team} score prediction:")
+  with right:
+      st.write(f"{away_team} score prediction:")
+  left2, right2 = st.columns(2)
+  with left2:
+      st.header(new_test['GF'].values[0])
+  with right2:
+      st.header(new_test['GA'].values[0])
+      
 def plot_timeline(roll_df, home_team, away_team, window_size=5):
   # Filter the dataframe to include only games between the specified teams
   team_df = roll_df[(roll_df['Home'] == home_team) & (roll_df['Away'] == away_team)].copy()
