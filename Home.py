@@ -21,8 +21,8 @@ df = read_data('epl-2017-2025-03-20.csv')
 
 left, right = st.columns(2)
 with left:
-    st.link_button("START", use_container_width=True, type='primary', st.page_link("pages/2_Predict_Score.py"))
+    st.button("START", use_container_width=True, type='primary', on_click=st.page_link("pages/2_Predict_Score.py"))
 with right:
-    st.link_button("See the Data", use_container_width=True, type='secondary', st.page_link("pages/1_See_The_Data.py"))
+    st.button("See the Data", use_container_width=True, type='secondary', on_click=st.page_link("pages/1_See_The_Data.py"))
 
 st.caption("Last Update: 20-03-2025")
