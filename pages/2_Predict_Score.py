@@ -4,9 +4,9 @@ from function_epl import *
 
 st.header("Let's See the Score!")
 
-df = rolling_home(df)
-df = rolling_home_away(df)
-roll_df = sort_data(df)
+roll_df = rolling_home(df)
+roll_df = rolling_home_away(roll_df)
+roll_df = sort_data(roll_df)
 roll_df = encode_data(roll_df)
 roll_df_normal = normalization_data(roll_df)
 
