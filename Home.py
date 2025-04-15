@@ -19,10 +19,7 @@ st.header('Can Your Team Win?')
 st.write('English Premier League Version. This is for FUN only')
 df = read_data('epl-2017-2025-03-20.csv')
 
-left, right = st.columns(2)
-with left:
-    st.button("START", use_container_width=True, type='primary', on_click=st.page_link("pages/2_Predict_Score.py"))
-with right:
-    st.button("See the Data", use_container_width=True, type='secondary', on_click=st.page_link("pages/1_See_The_Data.py"))
+st.page_link("pages/2_Predict_Score.py", label="START PREDICTION")
+st.page_link("pages/1_See_The_Data.py", label="See the Data")
 
 st.caption("Last Update: 20-03-2025")
