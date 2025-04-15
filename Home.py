@@ -13,7 +13,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from function_epl import *
 
-st.set_page_config(page_title="EPL Score - Can Your Team Win?", page_icon="⚽")
+st.set_page_config(page_title="EPL Score Prediction", page_icon="⚽")
 
 st.header('Can Your Team Win?')
 st.write('English Premier League Version. This is for FUN only')
