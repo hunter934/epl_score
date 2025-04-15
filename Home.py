@@ -22,8 +22,10 @@ df = read_data('epl-2017-2025-03-20.csv')
 
 left, right = st.columns(2)
 left.page_link("pages/2_Predict_Score.py")
-page_1 = left.button("START", use_container_width=True, type='primary')
+url = "https://eplscore2025.streamlit.app/Predict_Score"
+page_1 = left.button("START", use_container_width=True, type='primary', on_click=url)
 right.page_link("pages/1_See_The_Data.py")
-page_2 = right.button("See the Data", use_container_width=True, type='secondary', on_click="https://eplscore-niwxzmlmj92rcszsco3obt.streamlit.app/See_The_Data")
+url_2 = "https://eplscore2025.streamlit.app/See_The_Data"
+page_2 = right.button("See the Data", use_container_width=True, type='secondary', on_click=url_2)
 
 st.caption("Last Update: 20-03-2025")
