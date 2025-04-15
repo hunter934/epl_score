@@ -13,8 +13,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from function_epl import *
 
-st.set_page_config(page_title="EPL Score Prediction", page_icon="⚽")
-
+st.title('EPL Score Prediction')
 st.header('Can Your Team Win?')
 st.write('English Premier League Version. This is for FUN only')
 df = read_data('epl-2017-2025-03-20.csv')
