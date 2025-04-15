@@ -16,16 +16,11 @@ from function_epl import *
 st.set_page_config(page_title="EPL Score - Can Your Team Win?", page_icon="⚽")
 
 st.header('Can Your Team Win?')
-st.write('English Premier League Version')
-st.write('This is for FUN only. I made this because I need a portfolio for my data science job (LOL).')
+st.write('English Premier League Version. This is for FUN only')
 df = read_data('epl-2017-2025-03-20.csv')
 
 left, right = st.columns(2)
-left.page_link("pages/2_Predict_Score.py")
-url = "https://eplscore2025.streamlit.app/Predict_Score"
-page_1 = left.button("START", use_container_width=True, type='primary', on_click=url)
-right.page_link("pages/1_See_The_Data.py")
-url_2 = "https://eplscore2025.streamlit.app/See_The_Data"
-page_2 = right.button("See the Data", use_container_width=True, type='secondary', on_click=url_2)
+left.button("START", use_container_width=True, type='primary', on_click=page_link("pages/2_Predict_Score.py"))
+right.button("See the Data", use_container_width=True, type='secondary', on_click=page_link("pages/1_See_The_Data.py"))
 
 st.caption("Last Update: 20-03-2025")
