@@ -34,7 +34,7 @@ with right:
 
 col1, col2, col3 = st.columns(3)
 with col2:
-  button = st.button('Start Prediction')
+  button = st.button('Start Prediction', use_container_width=True, type='primary')
 
 if button == True:
     model = rf_regressor(roll_df_normal)
