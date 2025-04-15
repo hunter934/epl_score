@@ -21,42 +21,9 @@ st.write('This is for FUN only. I made this because I need a portfolio for my da
 df = read_data('epl-2017-2025-03-20.csv')
 
 left, right = st.columns(2)
-if left.button("START", use_container_width=True, type='primary'):
-    df = rolling_home(df)
-    df = rolling_home_away(df)
-    roll_df = sort_data(df)
-    roll_df = encode_data(roll_df)
-    roll_df_normal = normalization_data(roll_df)
-
+left.page_link("pages/2_Predict_Score.py")
+page_1 = left.button("START", use_container_width=True, type='primary')
 right.page_link("pages/1_See_The_Data.py")
 page_2 = right.button("See the Data", use_container_width=True, type='secondary', on_click="https://eplscore-niwxzmlmj92rcszsco3obt.streamlit.app/See_The_Data")
 
-home_team = st.selectbox("Choose Home Team",
-                         ('Manchester Utd', 'Ipswich Town', 'Newcastle Utd', "Nott'ham Forest",
-                          'Everton', 'Arsenal', 'West Ham', 'Brentford', 'Chelsea', 'Leicester City',
-                          'Brighton', 'Tottenham', 'Fulham', 'Crystal Palace', 'Manchester City',
-                          'Southampton', 'Aston Villa', 'Bournemouth', 'Wolves', 'Liverpool', 'Watford',
-                          'West Brom', 'Swansea City', 'Burnley', 'Stoke City', 'Huddersfield',
-                          'Cardiff City', 'Norwich City', 'Sheffield Utd', 'Leeds United', 'Luton Town'),
-                        )
-st.write("You selected:", home_team)
-away_team = st.selectbox("Choose Away Team", 
-                         ('Manchester Utd', 'Ipswich Town', 'Newcastle Utd', "Nott'ham Forest", 
-                          'Everton', 'Arsenal', 'West Ham', 'Brentford', 'Chelsea', 'Leicester City',
-                          'Brighton', 'Tottenham', 'Fulham', 'Crystal Palace', 'Manchester City',
-                          'Southampton', 'Aston Villa', 'Bournemouth', 'Wolves', 'Liverpool', 'Watford',
-                          'West Brom', 'Swansea City', 'Burnley', 'Stoke City', 'Huddersfield',
-                          'Cardiff City', 'Norwich City', 'Sheffield Utd', 'Leeds United', 'Luton Town'),
-                        )
-button = st.button('Start Prediction')
-st.write("You selected:", away_team)
-
-if button == True:
-    st.write('Prediction Started')
-    model = rf_regressor(roll_df_normal)
-    predict_data(roll_df_normal, home_team, away_team)
-    
-else:
-  st.write('Prediction Not Started')
-
-
+st.caption("Last Update: 20-03-2025")
