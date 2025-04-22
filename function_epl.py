@@ -330,7 +330,7 @@ def plot_timeline(roll_df, home_team, away_team, window_size=5):
 
     ax.set_xlabel("Recent Matches")
     ax.set_ylabel("Goals")
-    ax.set_title(f"Last {actual_window_size} Meets at Home: {home_team} vs. {away_team}", fontsize = 14)
+    ax.set_title(f"Last {actual_window_size} Meets at Home: {home_team} vs. {away_team} /n", fontsize = 18)
     ax.legend()
     ax.grid(True)
     ax.set_xticks(x_values)
