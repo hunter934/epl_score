@@ -39,6 +39,7 @@ with col2:
 if button == True:
     model = rf_regressor(roll_df_normal)
     predict_data(roll_df_normal, home_team, away_team)
+    plot_timeline(roll_df, home_team, away_team)
     
 else:
   st.write('Prediction Not Started')
