@@ -303,50 +303,42 @@ def predict_data(roll_df, home_team, away_team):
       st.header(new_test['GA'].values[0])
       
 def plot_timeline(roll_df, home_team, away_team, window_size=5):
-  # Filter the dataframe to include only games between the specified teams
-  team_df = roll_df[(roll_df['Home'] == home_team) & (roll_df['Away'] == away_team)].copy()
+    # Filter the dataframe
+    team_df = roll_df[(roll_df['Home'] == home_team) & (roll_df['Away'] == away_team)].copy()
 
-  if team_df.empty:
-      st.write(f"No match found between {home_team} and {away_team}.")
-      return
+    if team_df.empty:
+        st.write(f"No match found between {home_team} and {away_team}.")
+        return
 
-  # Get the actual number of matches, up to window_size
-  actual_window_size = min(len(team_df), window_size)
+    # Prepare data for plotting
+    actual_window_size = min(len(team_df), window_size)
+    home_xg = team_df['GF'].tail(actual_window_size)
+    away_xg = team_df['GA'].tail(actual_window_size)
+    x_values = list(range(1, actual_window_size + 1))
 
-  # Extract the relevant columns
-  home_xg = team_df['GF'].tail(actual_window_size)
-  away_xg = team_df['GA'].tail(actual_window_size)
-  match_dates = team_df.index[-actual_window_size:]
+    # Create the plot using Matplotlib
+    fig, ax = plt.subplots(figsize=(10, 4))  # Create a Matplotlib figure and axes
+    ax.fill_between(x_values, home_xg, 0, alpha=0.3)
+    ax.fill_between(x_values, away_xg, 0, alpha=0.3)
+    ax.plot(x_values, home_xg, label=f"{home_team} (Home)", marker='o')
+    ax.plot(x_values, away_xg, label=f"{away_team} (Away)", marker='x')
 
-  # Create x-axis values (1, 2, 3, 4, ...)
-  x_values = list(range(1, actual_window_size + 1))
+    for i, txt in enumerate(home_xg):
+        ax.annotate(f"{txt:.2f}", (x_values[i], home_xg.iloc[i]), textcoords="offset points", xytext=(0,10), ha='center')
+    for i, txt in enumerate(away_xg):
+        ax.annotate(f"{txt:.2f}", (x_values[i], away_xg.iloc[i]), textcoords="offset points", xytext=(0,10), ha='center')
 
-  # Create the plot
-  plt.figure(figsize=(10, 4))
+    ax.set_xlabel("Recent Matches")
+    ax.set_ylabel("Goals")
+    ax.set_title(f"Last {actual_window_size} Meets at Home: {home_team} vs. {away_team}")
+    ax.legend()
+    ax.grid(True)
+    ax.set_xticks(x_values)
 
-  # Fill the area under the lines
-  plt.fill_between(x_values, home_xg, 0, alpha=0.3)
-  plt.fill_between(x_values, away_xg, 0, alpha=0.3)
+    plt.tight_layout()
 
-  plt.plot(x_values, home_xg, label=f"{home_team} (Home)", marker='o')
-  plt.plot(x_values, away_xg, label=f"{away_team} (Away)", marker='x')
-
-  for i, txt in enumerate(home_xg):
-       plt.annotate(f"{txt:.2f}", (x_values[i], home_xg.iloc[i]), textcoords="offset points", xytext=(0,10), ha='center')
-  for i, txt in enumerate(away_xg):
-       plt.annotate(f"{txt:.2f}", (x_values[i], away_xg.iloc[i]), textcoords="offset points", xytext=(0,10), ha='center')
-
-  plt.xlabel("Recent Matches")
-  plt.ylabel("Goals")
-  plt.title(f"Last {actual_window_size} Meets at Home: {home_team} vs. {away_team}")
-  plt.legend()
-  plt.grid(True)
-
-  # Set x-axis ticks and labels
-  plt.xticks(x_values)
-
-  plt.tight_layout()
-  plt.show()
+    # Display the plot using Streamlit
+    st.pyplot(fig)  # Display the Matplotlib figure in Streamlit
 
 df = read_data('epl-2017-2025-03-20.csv')
 
