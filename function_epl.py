@@ -246,33 +246,47 @@ def create_new_df(roll_df, home_team, away_team):
 def predict_data(roll_df, home_team, away_team):
   # Create new data to be used for prediction
   def create_new_df(roll_df, home_team, away_team):
-    # Create a new dataframe with the required columns
-    new_df = pd.DataFrame({
-        'Home': [home_team],
-        'Away': [away_team],
-        'Rolling_Avg_xG_Home': roll_df.loc[(roll_df['Home'] == home_team), 'Rolling_Avg_xG_Home'].iloc[-1],
-        'Rolling_Avg_xG_Away': roll_df.loc[(roll_df['Away'] == away_team), 'Rolling_Avg_xG_Away'].iloc[-1],
-        'Rolling_Avg_GF': roll_df.loc[(roll_df['Home'] == home_team), 'Rolling_Avg_GF'].iloc[-1],
-        'Rolling_Avg_GA': roll_df.loc[(roll_df['Away'] == away_team), 'Rolling_Avg_GA'].iloc[-1],
-        'Rolling_Avg_Attendance': roll_df.loc[(roll_df['Home'] == home_team), 'Rolling_Avg_Attendance'].iloc[-1],
-        'Rolling_xG_Home': roll_df.loc[(roll_df['Home'] == home_team) & (roll_df['Away'] == away_team), 'Rolling_xG_Home'].iloc[-1],
-        'Rolling_xG_Away': roll_df.loc[(roll_df['Home'] == home_team) & (roll_df['Away'] == away_team), 'Rolling_xG_Away'].iloc[-1],
-        'Rolling_GF': roll_df.loc[(roll_df['Home'] == home_team)  & (roll_df['Away'] == away_team), 'Rolling_GF'].iloc[-1],
-        'Rolling_GA': roll_df.loc[(roll_df['Home'] == home_team) & (roll_df['Away'] == away_team), 'Rolling_GA'].iloc[-1],
-        'Rolling_Attendance': roll_df.loc[(roll_df['Home'] == home_team)  & (roll_df['Away'] == away_team), 'Rolling_Attendance'].iloc[-1],
-        'mean_Home_GF': roll_df.loc[(roll_df['Home'] == home_team), 'mean_Home_GF'].iloc[0],
-        'mean_Away_GF': roll_df.loc[(roll_df['Home'] == home_team) & (roll_df['Away'] == away_team), 'mean_Away_GF'].iloc[0],
-        'mean_Venue_GF': roll_df.loc[(roll_df['Home'] == home_team), 'mean_Venue_GF'].iloc[0],
-        'mean_Home_GA': roll_df.loc[(roll_df['Home'] == home_team), 'mean_Home_GA'].iloc[0],
-        'mean_Away_GA': roll_df.loc[(roll_df['Home'] == home_team) & (roll_df['Away'] == away_team), 'mean_Away_GA'].iloc[0],
-        'mean_Venue_GA': roll_df.loc[(roll_df['Home'] == home_team), 'mean_Venue_GA'].iloc[0],
-    })
-    new_df = new_df.drop(columns=(new_df.select_dtypes(include=['object']).columns))
+    # Create a new DataFrame with the required columns for prediction
+    # Check if the teams exist in the dataframe
+    if not roll_df[(roll_df['Home'] == home_team) & (roll_df['Away'] == away_team)].empty:
+      new_df = pd.DataFrame({
+          'Home': [home_team],
+          'Away': [away_team],
+          'Rolling_Avg_xG_Home': roll_df.loc[(roll_df['Home'] == home_team), 'Rolling_Avg_xG_Home'].iloc[-1],
+          'Rolling_Avg_xG_Away': roll_df.loc[(roll_df['Away'] == away_team), 'Rolling_Avg_xG_Away'].iloc[-1],
+          'Rolling_Avg_GF': roll_df.loc[(roll_df['Home'] == home_team), 'Rolling_Avg_GF'].iloc[-1],
+          'Rolling_Avg_GA': roll_df.loc[(roll_df['Away'] == away_team), 'Rolling_Avg_GA'].iloc[-1],
+          'Rolling_Avg_Attendance': roll_df.loc[(roll_df['Home'] == home_team), 'Rolling_Avg_Attendance'].iloc[-1],
+          'Rolling_xG_Home': roll_df.loc[(roll_df['Home'] == home_team) & (roll_df['Away'] == away_team), 'Rolling_xG_Home'].iloc[-1],
+          'Rolling_xG_Away': roll_df.loc[(roll_df['Home'] == home_team) & (roll_df['Away'] == away_team), 'Rolling_xG_Away'].iloc[-1],
+          'Rolling_GF': roll_df.loc[(roll_df['Home'] == home_team)  & (roll_df['Away'] == away_team), 'Rolling_GF'].iloc[-1],
+          'Rolling_GA': roll_df.loc[(roll_df['Home'] == home_team) & (roll_df['Away'] == away_team), 'Rolling_GA'].iloc[-1],
+          'Rolling_Attendance': roll_df.loc[(roll_df['Home'] == home_team)  & (roll_df['Away'] == away_team), 'Rolling_Attendance'].iloc[-1],
+          'mean_Home_GF': roll_df.loc[(roll_df['Home'] == home_team), 'mean_Home_GF'].iloc[0],
+          'mean_Away_GF': roll_df.loc[(roll_df['Home'] == home_team) & (roll_df['Away'] == away_team), 'mean_Away_GF'].iloc[0],
+          'mean_Venue_GF': roll_df.loc[(roll_df['Home'] == home_team), 'mean_Venue_GF'].iloc[0],
+          'mean_Home_GA': roll_df.loc[(roll_df['Home'] == home_team), 'mean_Home_GA'].iloc[0],
+          'mean_Away_GA': roll_df.loc[(roll_df['Home'] == home_team) & (roll_df['Away'] == away_team), 'mean_Away_GA'].iloc[0],
+          'mean_Venue_GA': roll_df.loc[(roll_df['Home'] == home_team), 'mean_Venue_GA'].iloc[0],
+      })
+      new_df = new_df.drop(columns=(new_df.select_dtypes(include=['object']).columns))
 
-    return new_df
+      return new_df
+    else:
+      # Handle the case where the teams have not played each other
+      st.write(f"No match history found between {home_team} and {away_team}.")
+      return None # or raise an exception
 
   # Create new array for prediction
-  new_np = np.array(create_new_df(roll_df, home_team, away_team))
+  new_df = create_new_df(roll_df, home_team, away_team)
+  if new_df is None:  # Check if create_new_df returned None
+    return  # Exit the function if there's no data to predict on
+
+  new_np = np.array(new_df)
+
+  # Reshape new_np to a 2D array if it has only one row
+  if new_np.ndim == 1:
+    new_np = new_np.reshape(1, -1)
 
   # Make prediction
   new_test = model.predict(new_np)
@@ -293,7 +307,7 @@ def plot_timeline(roll_df, home_team, away_team, window_size=5):
   team_df = roll_df[(roll_df['Home'] == home_team) & (roll_df['Away'] == away_team)].copy()
 
   if team_df.empty:
-      print(f"No match found between {home_team} and {away_team}.")
+      st.write(f"No match found between {home_team} and {away_team}.")
       return
 
   # Get the actual number of matches, up to window_size
